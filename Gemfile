@@ -26,6 +26,7 @@ group :test do
   gem 'simplecov'
   gem 'factory_girl'
   gem 'database_cleaner'
+  gem 'rspec'
   gem 'rspec-rails'
   gem 'shoulda'
   
