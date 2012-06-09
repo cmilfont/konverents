@@ -127,6 +127,52 @@ section input[type=tel] {
   -webkit-border-radius: 5px;
 }
 
+section input[type=submit],
+section input[type=button],
+section button,
+section a.button {
+  padding: 10px 20px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #FFF;
+  color: #555;
+  cursor: pointer;
+  background: linear-gradient(#F2F2F2, #DADADA);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F2F2F2), color-stop(100%, #DADADA));
+  background: -moz-linear-gradient(#F2F2F2, #DADADA);
+  -webkit-box-shadow: rgba(255, 255, 255, 0.18) 0 1px 0 inset;
+  -moz-box-shadow: rgba(255,255,255,0.18) 0 1px 0 inset;
+  box-shadow: rgba(255, 255, 255, 0.18) 0 1px 0 inset;
+  border: 1px solid #A2A4A6;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+section input[type=submit] {
+  text-shadow: 0 1px 0 #000;
+  color: #FFF;
+  background: -webkit-linear-gradient(#3694DF, #0268D8);
+  background: -moz-linear-gradient(#3694DF, #0268D8);
+  background: linear-gradient(#3694DF, #0268D8);
+  background-color: #0268D8;
+  border: 1px solid #00489A;
+  background-position: 0 0;
+  -webkit-box-shadow: #5AA7E5 0px 1px 0px inset;
+  -moz-box-shadow: #5aa7e5 0px 1px 0px inset;
+  box-shadow: #5AA7E5 0px 1px 0px inset;
+}
+section input[type=button]:active,
+section button:active,
+section a.button:active {
+  box-shadow: inset 0 1px 5px #AAA;
+  -moz-box-shadow: inset 0 1px 5px #AAA;
+  -webkit-box-shadow: inset 0 1px 5px #AAA;
+}
+section input[type=submit]:active {
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+
 .container {
   position: relative;
   margin: 0 auto;
