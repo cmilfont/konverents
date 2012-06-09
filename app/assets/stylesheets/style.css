@@ -89,6 +89,16 @@ section {
   box-shadow: 0 0 10px #999;
   z-index: 1;
 }
+section h2 {
+  padding: 25px 30px;
+  font-size: 20px;
+  color: #333;
+  background: #F0F0F0;
+  border-bottom: 1px solid #BBB;
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+}
 
 .container {
   position: relative;
