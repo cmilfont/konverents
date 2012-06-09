@@ -173,6 +173,13 @@ section input[type=submit]:active {
   -webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.7);
 }
 
+section .field {
+  display: inline-block;
+}
+section .field label {
+  display: block;
+}
+
 .container {
   position: relative;
   margin: 0 auto;
