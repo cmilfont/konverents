@@ -4,15 +4,8 @@
 
   <%= f.hidden_field :event_id, :value => @track.event_id %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :date %>
-    <%= f.text_field :date %>
-  </div>
+  <%= f.input_comp :title %>
+  <%= f.input_comp :date %>
 
   <%= f.submit "Create" %>
 <% end %>

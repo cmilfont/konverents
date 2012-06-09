@@ -2,10 +2,7 @@
 
 <%= form_for @event, :url => { :action => :create } do |f| %>
 
-  <div class="field">
-    <%= f.label 'Título do evento' %>
-    <%= f.text_field :title %>
-  </div>
+  <%= f.input_comp :title, :label => "Título do evento" %>
 
   <%= f.submit 'Salvar' %>
 
