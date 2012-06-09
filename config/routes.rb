@@ -6,10 +6,10 @@ Konverents::Application.routes.draw do
     get "sign_out", :to => "devise/sessions#destroy", :as => :logout  
   end
 
-  devise_scope :user do
-    get '/users/auth/facebook' => 'users/omniauth_callbacks#passthru'
-    get '/users/auth/facebook/callback' => 'users/omniauth_callbacks#passthru'
-  end
+  # devise_scope :user do
+  #   get '/users/auth/facebook' => 'users/omniauth_callbacks#passthru'
+  #   get '/users/auth/facebook/callback' => 'users/omniauth_callbacks#passthru'
+  # end
 
   root :to => 'home#index'
 
