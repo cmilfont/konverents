@@ -90,14 +90,41 @@ section {
   z-index: 1;
 }
 section h2 {
+  margin: 0;
   padding: 25px 30px;
-  font-size: 20px;
+  font-size: 25px;
   color: #333;
   background: #F0F0F0;
   border-bottom: 1px solid #BBB;
   border-radius: 10px 10px 0 0;
   -moz-border-radius: 10px 10px 0 0;
   -webkit-border-radius: 10px 10px 0 0;
+}
+
+section form {
+  margin-top: -1px;
+  padding: 25px;
+  background: #F0F0F0;
+}
+section label {
+  font-size: 14px;
+  font-weight: bold;
+}
+section input[type=text],
+section input[type=password],
+section input[type=file],
+section input[type=number],
+section input[type=email],
+section input[type=search],
+section input[type=url],
+section input[type=tel] {
+  margin: 3px 0 15px;
+  padding: 10px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 .container {
