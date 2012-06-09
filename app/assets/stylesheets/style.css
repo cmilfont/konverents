@@ -18,11 +18,43 @@ header {
   color: #FFF;
 }
 header h1 {
-  margin: 0 auto;
-  width: 960px;
+  margin: 0;
   font-size: 80px;
+  text-shadow: -4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+nav {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+nav a {
+  display: inline-block;
+  padding: 0 15px;
+  line-height: 45px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  -webkit-transition: all linear 0.2s;
+}
+nav a:hover {
+  background: #FFF;
+}
+nav a:first-of-type {
+  border-radius: 8px 0 0 8px;
+  -moz-border-radius: 8px 0 0 8px;
+  -webkit-border-radius: 8px 0 0 8px;
 }
 
 section {
   
+}
+
+.container {
+  margin: 0 auto;
+  width: 960px;
 }
