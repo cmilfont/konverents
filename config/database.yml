@@ -5,7 +5,7 @@ development:
   database: konverents_development
   pool: 5
   username: root
-  password: 
+  password: root
 
 test:
   adapter: mysql2
@@ -14,7 +14,7 @@ test:
   database: konverents_test
   pool: 5
   username: root
-  password: 
+  password: root
 
 production:
   adapter: mysql2
@@ -23,4 +23,4 @@ production:
   database: konverents_production
   pool: 5
   username: root
-  password: 
+  password: root
