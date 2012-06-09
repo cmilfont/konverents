@@ -1,4 +1,10 @@
 <nav>
   <%= link_to "Home", root_path %>
   <%= link_to "Events", root_path %>
+  <% if user_signed_in? %>
+	<%= link_to "Sign out", logout_path %>
+  <% else %>
+	<%= link_to "Sign in", login_path %>
+  <% end%>
+  
 </nav>

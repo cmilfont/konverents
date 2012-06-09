@@ -4,6 +4,12 @@ gem 'rails', '3.1.3'
 
 gem 'mysql2'
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'oauth2'
+
+
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
