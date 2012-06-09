@@ -2,6 +2,6 @@
   <div class="container">
     <%= render "layouts/menu" %>
     <%= link_to "konverents", root_path, :class => "name" %>
-    <h1>Título desse menu</h1>
+    <h1><%= @page_title || controller.controller_name.capitalize %></h1>
   </div>
 </header>
