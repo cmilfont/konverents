@@ -25,7 +25,7 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 # To use debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'debugger'
 
 group :test do
   # Pretty printed test output
