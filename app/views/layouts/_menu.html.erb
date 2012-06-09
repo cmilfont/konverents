@@ -1,6 +1,6 @@
 <nav>
   <%= link_to "Home", root_path, :class => "active" %>
-  <%= link_to "Events", root_path %>
+  <%= link_to "Events", events_path %>
   <% if user_signed_in? %>
 	<%= link_to "Sign out", logout_path %>
   <% else %>
