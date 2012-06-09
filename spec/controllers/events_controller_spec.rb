@@ -40,6 +40,7 @@ describe EventsController do
     it "should be success" do
       post :create
       response.should be_redirect
+      response.should redirect_to events_path
     end
   end
   
@@ -47,13 +48,14 @@ describe EventsController do
     let (:event) { mock_model Event }
     
     before do
-      event.should_receive(:save).once.and_return true
+      event.should_receive(:save).once.and_return false
       Event.should_receive(:new).once.and_return event
     end
     
     it "should not be success" do
       post :create
       response.should be_redirect
+      response.should redirect_to new_event_path
     end
   end
 

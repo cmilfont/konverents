@@ -12,10 +12,11 @@ class EventsController < ApplicationController
     event = Event.new params[:event]
     if event.save
       flash[:notice] = "Evento salvo"
+      redirect_to events_path
     else
       flash[:notice] = "Ocorreu um erro para salvar o evento"
+      redirect_to new_event_path
     end
-    redirect_to events_path
   end
   
 end
