@@ -32,10 +32,12 @@ header h1 {
 }
 header .name {
   position: absolute;
-  top: 40px;
-  font-weight: bold;
-  font-size: 35px;
+  top: 25px;
+  font-family: 'Shadows Into Light';
+  font-size: 45px;
   text-shadow: -4px 0 0 rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  color: #FFF;
 }
 
 nav {
