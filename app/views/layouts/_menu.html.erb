@@ -1,10 +1,10 @@
 <nav>
-  <%= link_to "Home", root_path, :class => "active" %>
-  <%= link_to "Events", events_path %>
+  <%= link_to "Home", root_path, :class => active_menu_if("home") %>
+  <%= link_to "Events", events_path, :class => active_menu_if("events") %>
   <% if user_signed_in? %>
-	<%= link_to "Sign out", logout_path %>
+	<%= link_to "Sign out", logout_path, :class => active_menu_if("sessions") %>
   <% else %>
-	<%= link_to "Sign in", login_path %>
+	<%= link_to "Sign in", login_path, :class => active_menu_if("sessions") %>
   <% end%>
   
 </nav>
