@@ -5,17 +5,17 @@
 		<td>
 			Title
 		</td>
+		<td>
+			
+		</td>
 	</th>
 	<% @tracks.each do |track| %>
 	<tr>
 		<td>
-			<%= track.title %>
+			<%= link_to track.title, event_track_path(@event.id, track.id) %>
 		</td>
 		<td>
 			<%= link_to "Edit", edit_event_track_path(@event.id, track.id) %>
-		</td>
-		<td>
-
 		</td>
 	</tr>
 	<% end %>

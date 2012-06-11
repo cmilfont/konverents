@@ -1,6 +1,6 @@
 <h2>All events</h2>
 <ul>
 	<% @events.each do |event| %>
-	<li><%= event.title %></li>
+	<li> <%= link_to event.title, event_tracks_path(event.id) %></li>
 	<% end%>
 </ul>
