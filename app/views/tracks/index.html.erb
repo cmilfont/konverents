@@ -6,11 +6,17 @@
 			Title
 		</td>
 	</th>
+	<% @tracks.each do |track| %>
 	<tr>
-		<% @tracks.each do |track| %>
 		<td>
 			<%= track.title %>
 		</td>
-		<% end %>
+		<td>
+			<%= link_to "Edit", edit_event_track_path(@event.id, track.id) %>
+		</td>
+		<td>
+
+		</td>
 	</tr>
+	<% end %>
 </table>

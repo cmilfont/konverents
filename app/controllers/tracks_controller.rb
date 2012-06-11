@@ -20,7 +20,7 @@ class TracksController < ApplicationController
   def create
     @track = Track.new params[:track]
     @track.save
-    respond_with @track
+    respond_with @track, :location => event_track_url(@event.id, @track.id)
   end
   
   def find_event
