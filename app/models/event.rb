@@ -1,6 +1,12 @@
 class Event < ActiveRecord::Base
   
-  validates_presence_of :title
+  belongs_to :user
   has_many :tracks
+  
+  validates_presence_of :title, :user
+  
+  def owned_by? owner
+    owner.present? && user.id == owner.id
+  end
   
 end
