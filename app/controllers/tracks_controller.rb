@@ -27,4 +27,13 @@ class TracksController < ApplicationController
     @event = Event.find params[:event_id]
   end
 
+  def delete
+	@track = Track.find params[:id] 
+  end
+
+  def destroy
+    @track = Track.find params[:id]
+    @track.destroy
+  end
+
 end
