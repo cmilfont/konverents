@@ -1,5 +1,6 @@
 Konverents::Application.routes.draw do
-  
+
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
     get "sign_in",  :to => "devise/sessions#new", :as => :login
     get "sign_up",  :to => "devise/registrations#new"
@@ -14,7 +15,9 @@ Konverents::Application.routes.draw do
   root :to => 'home#index'
 
   resources :events do
-      resources :tracks
+      resources :tracks do
+        resources :occurrences
+      end
   end
 
 end
