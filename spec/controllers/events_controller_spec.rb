@@ -45,7 +45,7 @@ describe EventsController do
     end
       
     describe "DELETE 'destroy'" do
-      before { put :update, :id => 1 }
+      before { delete :destroy, :id => 1 }
       it { response.should redirect_to new_user_session_path }
     end
 
