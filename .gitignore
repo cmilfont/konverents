@@ -20,3 +20,6 @@
 .idea
 .project
 .rbenv-version
+
+coverage/
+test/

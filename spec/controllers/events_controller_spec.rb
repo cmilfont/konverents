@@ -4,72 +4,155 @@ describe EventsController do
   
   describe "GET 'index'" do
     let (:event) { mock_model Event }
-    
     before do
-      Event.should_receive(:all).once.and_return [ event ]
-    end
-    
-    it "should be success" do
+      @events = [ event ]
+      Event.should_receive(:all).once.and_return @events
       get :index
-      response.should be_success
     end
-    
+    it { response.should be_success }
+    it { should assign_to(:events).with(@events) }
+  end
+  
+  describe "GET 'show'" do
+    before do
+      @event = FactoryGirl.create(:event)
+      get :show, :id => @event.id
+    end
+    it { response.should be_success }
+    it { should assign_to(:event).with(@event) }
   end
   
   context "Unlogged" do
+    
     describe "GET 'new'" do
-
-      it "should be success" do
-        get :new
-        response.should be_redirect
-        response.should redirect_to new_user_session_path
-      end
+      before { get :new }
+      it { response.should redirect_to user_session_path }
     end
-
+      
+    describe "GET 'edit'" do
+      before { get :edit, :id => 1 }
+      it { response.should redirect_to new_user_session_path }
+    end
+      
     describe "POST 'create'" do
-      it "should be success" do
-        post :create
-        response.should be_redirect
-        response.should redirect_to new_user_session_path
-      end
+      before { post :create }
+      it { response.should redirect_to new_user_session_path }
+    end
+      
+    describe "PUT 'update'" do
+      before { put :update, :id => 1 }
+      it { response.should redirect_to new_user_session_path }
+    end
+      
+    describe "DELETE 'destroy'" do
+      before { delete :destroy, :id => 1 }
+      it { response.should redirect_to new_user_session_path }
     end
 
-    describe "POST 'create'" do    
-      it "should not be success" do
-        post :create
-        response.should be_redirect
-        response.should redirect_to new_user_session_path
-      end
-    end
   end
   
-  context "Logged user" do    
-    before do
-      @user = FactoryGirl.create :user
-      sign_in @user
+  context "Logged" do    
+
+    before (:each) do
+      login
     end
     
     describe "GET 'new'" do
-      it "should be success" do
-        get :new
-        response.should be_redirect
-        response.should redirect_to new_event_path
-      end
+      before { get :new }
+      it { should render_template :new }
+      specify { should assign_to(:event).with_kind_of(Event) }
     end
-
-    describe "POST 'create'" do
-      it "should be success" do
-        post :create
-        response.should be_success
+    
+    describe "POST 'create' " do
+      
+      context "with sucess" do
+        let(:event) { assigns[:event] }
+        before { post :create, :event => { :title => "JavaCE", :user_id => @user.id } }
+        it { should respond_with_content_type(:html) }
+        it { should assign_to(:event) }
+        it { event.should be_valid }
+        it { should respond_with(:redirect) }
+        it { should_not set_the_flash }
+        it { response.should redirect_to event_path(event)}
       end
-    end
-
-    describe "POST 'create'" do    
-      it "should not be success" do
-        post :create
-        response.should be_redirect
-        response.should redirect_to new_user_session_path
+      
+      context "with failure" do
+        let(:event) { assigns[:event] }
+        before { post :create }
+        it { should render_template :new }
+        it { event.should_not be_valid }
+        it { event.should have(2).errors }
+        it { event.should have(1).error_on(:title)}
+        it { event.should have(1).error_on(:user)}
       end
+      
     end
+    
+    context "when is owned by logged user" do
+      
+      let(:event) { FactoryGirl.create(:event, :user => @user) }
+      
+      describe "GET 'edit'" do
+        before { get :edit, :id => event.id }
+        it { should assign_to(:event) }
+        it { should render_template :edit }
+      end
+      
+      describe "PUT 'update'" do
+        before { put :update, :id => event.id, :event => { :title => "JavaCE Conference" } }
+        it { should assign_to(:event) }
+        it { assigns[:event].should be_valid }
+        it { assigns[:event].title.should == "JavaCE Conference" }
+      end
+      
+      describe "DELETE 'destroy'" do
+        before { delete :destroy, :id => event.id }
+        it { should respond_with(:redirect) }
+      end
+      
+      describe "DELETE 'destroy' with exception" do
+        it {
+          lambda {
+            delete :destroy, :id => 2
+          }.should raise_error(ActiveRecord::RecordNotFound, "Couldn't find Event with id=2")
+        }
+      end
+      
+    end
+    
+    context "when isn't owned by logged user" do
+      
+      before do
+        @owner = FactoryGirl.create(:user, :email => "teste@milfont.org")
+        @owner.confirm!
+        @event = FactoryGirl.create(:event, :user => @owner)
+      end
+      
+      describe "GET 'edit'" do
+        before { get :edit, :id => @event.id }
+        it { should respond_with(:unauthorized) }
+        it { should set_the_flash.to(/Unauthorized User/i) }
+      end
+      
+      describe "PUT 'update'" do
+        before { put :update, :id => @event.id }
+        it { should respond_with(:unauthorized) }
+        it { should set_the_flash.to(/Unauthorized User/i) }
+      end
+      
+      describe "DELETE 'destroy'" do
+        before { delete :destroy, :id => @event.id }
+        it { should respond_with(:unauthorized) }
+        it { should set_the_flash.to(/Unauthorized User/i) }
+      end
+      
+      describe "DELETE 'destroy' with json format" do
+        before { delete :destroy, :id => @event.id, :format => :json }
+        it { should respond_with(:unauthorized) }
+        it { response.body.should be_eql({ :message => "Unauthorized User" }.to_json) }
+      end
+      
+    end
+    
   end
 end
