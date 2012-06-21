@@ -5,6 +5,8 @@ class OccurrencesController < ApplicationController
 
   before_filter :authenticate_owner!, :only => [:update, :edit]
 
+  before_filter :find_event, :find_track
+
   respond_to :html, :json
 
   def index
@@ -38,6 +40,14 @@ class OccurrencesController < ApplicationController
   	@occurrence = Occurrence.find(params[:id])
   	@occurrence.destroy
   	respond_with @occurrence
+  end
+
+  def find_event
+    @event = Event.find(params[:event_id])
+  end
+
+  def find_track
+    @track = Track.find(params[:track_id])
   end
 
   private
