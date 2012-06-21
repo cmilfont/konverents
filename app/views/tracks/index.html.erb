@@ -1,22 +1,20 @@
 <%= link_to "Create Track", new_event_track_path(@event) %>
 
-<table>
-	<th>
-		<td>
-			Title
-		</td>
-		<td>
-			
-		</td>
-	</th>
-	<% @tracks.each do |track| %>
-	<tr>
-		<td>
-			<%= link_to track.title, event_track_path(@event.id, track.id) %>
-		</td>
-		<td>
-			<%= link_to "Edit", edit_event_track_path(@event.id, track.id) %>
-		</td>
-	</tr>
-	<% end %>
-</table>
+
+<% @tracks.each do |track| %>
+	<div id="track_<%= track.id %>">
+		<%= link_to "Exibir #{track.title}", event_track_path(@event.id, track.id) %>
+		<%= link_to "Alterar Track", edit_event_track_path(@event.id, track.id) %>
+		<div class="track_date"> <%= track.date %> </div>
+		<div class="track_local"> <%= track.local %> </div>
+		
+		<ul>
+			<% track.occurrences.each do |occurrence| %>
+			<li>
+				<%= occurrence.hour %> - <%= occurrence.description %>
+			</li>
+			<% end %>
+		</ul>
+		
+	</div>
+<% end %>
