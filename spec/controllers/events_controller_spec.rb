@@ -13,6 +13,15 @@ describe EventsController do
     it { should assign_to(:events).with(@events) }
   end
   
+  describe "GET 'show'" do
+    before do
+      @event = FactoryGirl.create(:event)
+      get :show, :id => @event.id
+    end
+    it { response.should be_success }
+    it { should assign_to(:event).with(@event) }
+  end
+  
   context "Unlogged" do
     
     describe "GET 'new'" do
@@ -135,6 +144,12 @@ describe EventsController do
         before { delete :destroy, :id => @event.id }
         it { should respond_with(:unauthorized) }
         it { should set_the_flash.to(/Unauthorized User/i) }
+      end
+      
+      describe "DELETE 'destroy' with json format" do
+        before { delete :destroy, :id => @event.id, :format => :json }
+        it { should respond_with(:unauthorized) }
+        it { response.body.should be_eql({ :message => "Unauthorized User" }.to_json) }
       end
       
     end

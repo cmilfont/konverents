@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, :except => [:index, :show]
   
-  before_filter :find_event, :only => [:edit, :update, :destroy]
+  before_filter :find_event, :only => [:show, :edit, :update, :destroy]
   before_filter :authenticate_owner!, :only => [:edit, :update, :destroy]
   
   respond_to :html, :json
@@ -13,6 +13,9 @@ class EventsController < ApplicationController
   
   def new
     @event = Event.new
+  end
+  
+  def show
   end
   
   def edit
@@ -45,19 +48,12 @@ class EventsController < ApplicationController
   
   def respond_with_error(message = "Unauthorized User", error_code = :unauthorized)
     Rails.logger.info "RESPONDING WITH ERROR #{message} and #{params}"
-    #respond_with @data, :status => error_code, :location => events_path
     respond_to do |format|
       format.html {
         redirect_to(events_path, :status => error_code, :flash => { :alert => message } )
       }
+      format.json { render :json => { :message => message}, :status => error_code }
     end
-=begin
-    respond_to do |format|
-      format.json { render :json => @data, :status => @data[:status], :location => nil }
-      format.xml {   render :json => @data, :status => @data[:status], :location => nil }
-    end
-=end
   end
-  
   
 end
