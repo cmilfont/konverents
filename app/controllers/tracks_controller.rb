@@ -2,7 +2,7 @@
 class TracksController < ApplicationController
 
   before_filter :find_event
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @tracks = @event.tracks
@@ -28,12 +28,8 @@ class TracksController < ApplicationController
   end
 
   def delete
-	@track = Track.find params[:id] 
-  end
-
-  def destroy
-    @track = Track.find params[:id]
-    @track.destroy
+		@track = Track.find params[:id]
+		@track.destroy
   end
 
 end
