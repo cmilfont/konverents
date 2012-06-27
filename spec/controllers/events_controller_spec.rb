@@ -15,7 +15,8 @@ describe EventsController do
   
   describe "GET 'show'" do
     before do
-      @event = FactoryGirl.create(:event)
+      @user = FactoryGirl.create :user
+      @event = FactoryGirl.create(:event, :user => @user, :other => @user)
       get :show, :id => @event.id
     end
     it { response.should be_success }
@@ -86,11 +87,32 @@ describe EventsController do
         it { event.should have(1).error_on(:user)}
       end
       
+      context "When trying create with other user" do
+        before do
+          @other = FactoryGirl.create(:user, :email => "teste@milfont.org")
+          post :create, :event => { :title => "JavaCE", :user_id => @other.id }
+        end
+        it { should respond_with(:unauthorized) }
+        it { should set_the_flash.to(/Trying create an event with other user/i) }
+      end
+      
+      context "When trying create with other user and json format" do
+        before do
+          @other = FactoryGirl.create(:user, :email => "teste@milfont.org")
+          @msg = "Trying create an event with other user"
+          post :create, :event => { :title => "JavaCE", :user_id => @other.id }, :format => :json
+        end
+        it { should respond_with(:unauthorized) }
+        it { response.body.should be_eql({ :message => @msg }.to_json) }
+      end
+      
     end
     
     context "when is owned by logged user" do
       
-      let(:event) { FactoryGirl.create(:event, :user => @user) }
+      let(:event) {
+        FactoryGirl.create(:event, :user => @user, :other => @user) 
+      }
       
       describe "GET 'edit'" do
         before { get :edit, :id => event.id }
@@ -125,7 +147,7 @@ describe EventsController do
       before do
         @owner = FactoryGirl.create(:user, :email => "teste@milfont.org")
         @owner.confirm!
-        @event = FactoryGirl.create(:event, :user => @owner)
+        @event = FactoryGirl.create(:event, :user => @owner, :other => @owner)
       end
       
       describe "GET 'edit'" do

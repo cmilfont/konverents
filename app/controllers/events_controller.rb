@@ -5,6 +5,8 @@ class EventsController < ApplicationController
   before_filter :find_event, :only => [:show, :edit, :update, :destroy]
   before_filter :authenticate_owner!, :only => [:edit, :update, :destroy]
   
+  before_filter :populate_event_on_params, :only => [:create]
+  
   respond_to :html, :json
   
   def index
@@ -21,8 +23,9 @@ class EventsController < ApplicationController
   def edit
   end
   
+  rescue_from Exceptions::CreatedByOtherUser, :with => :record_not_created
   def create
-    @event = Event.create params[:event]    
+    @event = Event.create params[:event].merge(:other => current_user)
     respond_with @event
   end
   
@@ -37,6 +40,14 @@ class EventsController < ApplicationController
   end
   
   private
+  
+  def populate_event_on_params
+    params[:event] = {} unless params[:event].present?
+  end
+  
+  def record_not_created exception
+    respond_with_error(exception.message) and return
+  end
   
   def find_event
     @event = Event.find params[:id]
